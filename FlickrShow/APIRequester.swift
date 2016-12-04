@@ -20,12 +20,12 @@ class APIRequester {
         let task = session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
                 print(error!)
-                completion(false, nil)
+                DispatchQueue.main.async { completion(false, nil) }
                 return
             }
             
             guard let data = data else {
-                completion(false, nil)
+                DispatchQueue.main.async { completion(false, nil) }
                 return
             }
 
@@ -38,10 +38,10 @@ class APIRequester {
                     let json = try JSONSerialization.jsonObject(with: stripped.data(using: .utf8)!, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! [String: Any]
                     var model = PhotosPublicModel()
                     model.parse(json: json)
-                    completion(true, model)
+                    DispatchQueue.main.async { completion(true, model) }
                 } catch let jsonError {
                     print(jsonError)
-                    completion(false, nil)
+                    DispatchQueue.main.async { completion(false, nil) }
                 }
             }
             
