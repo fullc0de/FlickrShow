@@ -10,7 +10,7 @@ import Foundation
 
 class APIRequester {
     class func photosPublic(completion: @escaping (Bool, PhotosPublicModel?) -> Void) -> URLSessionDataTask? {
-        guard let url = URL(string: "https://api.flickr.com/services/feeds/photos_public.gne?format=json") else {
+        guard let url = URL(string: "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1") else {
             return nil
         }
         
@@ -29,20 +29,14 @@ class APIRequester {
                 return
             }
 
-            if let rawString = String(data: data, encoding: .utf8) {
-                let start = rawString.index(rawString.startIndex, offsetBy: 15)
-                let end = rawString.index(rawString.endIndex, offsetBy: -1)
-                let stripped = rawString.substring(with: start..<end)
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: stripped.data(using: .utf8)!, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! [String: Any]
-                    var model = PhotosPublicModel()
-                    model.parse(json: json)
-                    DispatchQueue.main.async { completion(true, model) }
-                } catch let jsonError {
-                    print(jsonError)
-                    DispatchQueue.main.async { completion(false, nil) }
-                }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! [String: Any]
+                var model = PhotosPublicModel()
+                model.parse(json: json)
+                DispatchQueue.main.async { completion(true, model) }
+            } catch let jsonError {
+                print(jsonError)
+                DispatchQueue.main.async { completion(false, nil) }
             }
             
         }
