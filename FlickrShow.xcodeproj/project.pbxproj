@@ -16,7 +16,6 @@
 		4A21C9111DF3E903007DE3A6 /* PhotosPublicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21C9101DF3E903007DE3A6 /* PhotosPublicModel.swift */; };
 		4A21C9131DF3E9C8007DE3A6 /* PhotosPublicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21C9121DF3E9C8007DE3A6 /* PhotosPublicItem.swift */; };
 		4A46BEB61DF27C18005F5BA1 /* PhotoShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A46BEB51DF27C18005F5BA1 /* PhotoShowViewController.swift */; };
-		4A46BEBE1DF27E04005F5BA1 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A46BEB71DF27D67005F5BA1 /* WebImage.framework */; };
 		4A8BCBBE1DF281120011AAC4 /* PhotoViewSupplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCBBD1DF281120011AAC4 /* PhotoViewSupplier.swift */; };
 		4A96A7C91DF3CB35000A83A3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A96A7C81DF3CB35000A83A3 /* UIViewExtension.swift */; };
 		4AE7A1191DF400D300D45E38 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7A1181DF400D300D45E38 /* DateExtension.swift */; };
@@ -25,6 +24,7 @@
 		7EC8A0EC1E4460B7001824BA /* RxAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC8A0E81E4460B7001824BA /* RxAlamofire.framework */; };
 		7EC8A0ED1E4460B7001824BA /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC8A0E91E4460B7001824BA /* RxSwift.framework */; };
 		7EC8A0EF1E446130001824BA /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC8A0EE1E446130001824BA /* RxCocoa.framework */; };
+		7EC8A0F11E446D41001824BA /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC8A0F01E446D41001824BA /* SDWebImage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +49,7 @@
 		7EC8A0E81E4460B7001824BA /* RxAlamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAlamofire.framework; path = Carthage/Build/iOS/RxAlamofire.framework; sourceTree = "<group>"; };
 		7EC8A0E91E4460B7001824BA /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		7EC8A0EE1E446130001824BA /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		7EC8A0F01E446D41001824BA /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +57,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EC8A0F11E446D41001824BA /* SDWebImage.framework in Frameworks */,
 				7EC8A0EF1E446130001824BA /* RxCocoa.framework in Frameworks */,
 				7EC8A0EA1E4460B7001824BA /* Alamofire.framework in Frameworks */,
 				7EC8A0EB1E4460B7001824BA /* ObjectMapper.framework in Frameworks */,
 				7EC8A0EC1E4460B7001824BA /* RxAlamofire.framework in Frameworks */,
 				7EC8A0ED1E4460B7001824BA /* RxSwift.framework in Frameworks */,
-				4A46BEBE1DF27E04005F5BA1 /* WebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +111,7 @@
 		7EC8A0E51E4460B7001824BA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7EC8A0F01E446D41001824BA /* SDWebImage.framework */,
 				7EC8A0EE1E446130001824BA /* RxCocoa.framework */,
 				7EC8A0E61E4460B7001824BA /* Alamofire.framework */,
 				7EC8A0E71E4460B7001824BA /* ObjectMapper.framework */,
@@ -194,7 +196,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/WebImage.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ObjectMapper.framework",

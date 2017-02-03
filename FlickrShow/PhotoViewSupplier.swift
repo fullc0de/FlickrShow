@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-import WebImage
+import SDWebImage
 
 class PhotoViewSupplier {
     
@@ -20,7 +20,7 @@ class PhotoViewSupplier {
     init(contentMode: UIViewContentMode) {
         self.contentMode = contentMode
         let imageCache = SDImageCache.shared()
-        imageCache?.shouldCacheImagesInMemory = false
+        imageCache.config.shouldCacheImagesInMemory = false
     }
     
     func getPhotoView(completion: @escaping (UIImageView?) -> Void) {
