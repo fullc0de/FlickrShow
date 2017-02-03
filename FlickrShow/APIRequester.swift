@@ -29,16 +29,12 @@ class APIRequester {
                 return
             }
 
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! [String: Any]
-                var model = PhotosPublicModel()
-                model.parse(json: json)
+            if let jsonString = String(data: data, encoding: .utf8) {
+                let model = PhotosPublicModel(JSONString: jsonString)
                 DispatchQueue.main.async { completion(true, model) }
-            } catch let jsonError {
-                print(jsonError)
+            } else {
                 DispatchQueue.main.async { completion(false, nil) }
             }
-            
         }
         task.resume()
         return task

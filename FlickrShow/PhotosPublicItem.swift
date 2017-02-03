@@ -7,43 +7,31 @@
 //
 
 import Foundation
+import ObjectMapper
 
-struct PhotosPublicItem {
-    var title = ""
-    var link = ""
-    var media = [String: String]()
-    var dateTaken: Date? = nil
-    var desc = ""
-    var published: Date? = nil
-    var author = ""
-    var authorID = ""
-    var tags = ""
+struct PhotosPublicItem: Mappable {
+    var title: String?
+    var link: String?
+    var media: [String: String] = [:]
+    var dateTaken: Date?
+    var desc: String?
+    var published: Date?
+    var author: String?
+    var tags: String?
     
-    mutating func parse(json: [String: Any]) {
-        if let value = json["title"] as? String {
-            title = value
-        }
-        if let value = json["link"] as? String {
-            link = value
-        }
-        if let value = json["media"] as? [String: String] {
-            media = value
-        }
-        if let value = json["description"] as? String {
-            desc = value
-        }
-        if let value = json["date_taken"] as? String {
-            dateTaken = Date.dateForFlickr(string: value)
-        }
-        if let value = json["published"] as? String {
-            published = Date.dateForFlickr(string: value)
-        }
-        if let value = json["author"] as? String {
-            author = value
-        }
-        if let value = json["tags"] as? String {
-            tags = value
-        }
+    init?(map: Map) {
+        
+    }
+    
+    mutating func mapping(map: Map) {
+        title <- map["title"]
+        link <- map["link"]
+        media <- map["media"]
+        dateTaken <- map["date_taken"]
+        desc <- map["description"]
+        published <- map["published"]
+        author <- map["author"]
+        tags <- map["tags"]
     }
     
     func largeImageURLString() -> String? {

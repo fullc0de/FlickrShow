@@ -7,37 +7,26 @@
 //
 
 import Foundation
+import ObjectMapper
 
-struct PhotosPublicModel {
-    var title = ""
-    var link = ""
-    var desc = ""
-    var modified: Date? = nil
-    var generator = ""
-    var items = [PhotosPublicItem]()
+struct PhotosPublicModel: Mappable {
+    var title: String?
+    var link: String?
+    var desc: String?
+    var modified: Date?
+    var generator: String?
+    var items: [PhotosPublicItem] = []
     
-    mutating func parse(json: [String: Any]) {
-        if let value = json["title"] as? String {
-            title = value
-        }
-        if let value = json["link"] as? String {
-            link = value
-        }
-        if let value = json["description"] as? String {
-            desc = value
-        }
-        if let value = json["modified"] as? String {
-            modified = Date.dateForFlickr(string: value)
-        }
-        if let value = json["generator"] as? String {
-            generator = value
-        }
-        if let value = json["items"] as? [[String: Any]] {
-            items = value.map { (raw) -> PhotosPublicItem in
-                var item = PhotosPublicItem()
-                item.parse(json: raw)
-                return item
-            }
-        }
+    init?(map: Map) {
+        
+    }
+    
+    mutating func mapping(map: Map) {
+        title <- map["title"]
+        link <- map["link"]
+        desc <- map["description"]
+        modified <- map["modified"]
+        generator <- map["generator"]
+        items <- map["items"]
     }
 }
