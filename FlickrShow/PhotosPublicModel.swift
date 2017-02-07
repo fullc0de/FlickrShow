@@ -25,7 +25,7 @@ struct PhotosPublicModel: Mappable {
         title <- map["title"]
         link <- map["link"]
         desc <- map["description"]
-        modified <- map["modified"]
+        modified <- (map["modified"], DateFormatterTransform(dateFormatter: Date.flickrDateFormatter))
         generator <- map["generator"]
         items <- map["items"]
     }

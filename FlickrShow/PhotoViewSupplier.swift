@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import SDWebImage
+import RxSwift
 
 class PhotoViewSupplier {
     
@@ -16,6 +17,7 @@ class PhotoViewSupplier {
     var items = [PhotosPublicItem]()
     
     var requestTask: URLSessionDataTask?
+    var dispose: Disposable?
     
     init(contentMode: UIViewContentMode) {
         self.contentMode = contentMode
@@ -23,18 +25,54 @@ class PhotoViewSupplier {
         imageCache.config.shouldCacheImagesInMemory = false
     }
     
+    deinit {
+        dispose?.dispose()
+    }
+    
     func getPhotoView(completion: @escaping (UIImageView?) -> Void) {
         print("item count = \(items.count)")
         if items.count == 0 {
-            if requestTask == nil {
+            if dispose == nil {
                 print("reload items!")
-                requestTask = APIRequester.photosPublic() { (success, model) in
-                    if success, let model = model {
-                        self.items.append(contentsOf: model.items)
-                        self.fetchNextItem(completion: completion)
-                        self.requestTask = nil
-                    }
-                }
+//                requestTask = APIRequester.photosPublic() { (success, model) in
+//                    if success, let model = model {
+//                        self.items.append(contentsOf: model.items)
+//                        self.fetchNextItem(completion: completion)
+//                        self.requestTask = nil
+//                    }
+//                }
+                dispose = APIRequester.rxPhotosPublic()
+                    .retry(10)
+                    .subscribe(onNext: { [weak self] model in
+                        guard let strongSelf = self else {
+                            return
+                        }
+                        strongSelf.items.append(contentsOf: model.items)
+                        strongSelf.fetchNextItem(completion: completion)
+                        strongSelf.dispose = nil
+                    }, onError: { error in
+                        print("error occurred [\(error as NSError)]")
+                })
+                
+//                dispose = APIRequester.rxPhotosPublic()
+//                    .retry(10)
+//                    .takeUntil(Observable.just(1))
+//                    .subscribe { [weak self] e in
+//                    guard let strongSelf = self else {
+//                        return
+//                    }
+//
+//                    switch e {
+//                    case .next(let model):
+//                        strongSelf.items.append(contentsOf: model.items)
+//                        strongSelf.fetchNextItem(completion: completion)
+//                        strongSelf.dispose = nil
+//                    case .error(let error):
+//                        print("error occurred [\(error as NSError)]")
+//                    default:
+//                        break
+//                    }
+//                }
             }
         } else {
             fetchNextItem(completion: completion)
@@ -55,5 +93,5 @@ class PhotoViewSupplier {
                 completion(pv)
             }
         }
-    }
+    }    
 }

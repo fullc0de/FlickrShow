@@ -9,7 +9,7 @@
 import Foundation
 
 extension Date {
-    private static let flickrDateFormatter: DateFormatter = {
+    public static let flickrDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         return dateFormatter

@@ -27,9 +27,9 @@ struct PhotosPublicItem: Mappable {
         title <- map["title"]
         link <- map["link"]
         media <- map["media"]
-        dateTaken <- map["date_taken"]
+        dateTaken <- (map["date_taken"], DateFormatterTransform(dateFormatter: Date.flickrDateFormatter))
         desc <- map["description"]
-        published <- map["published"]
+        published <- (map["published"], DateFormatterTransform(dateFormatter: Date.flickrDateFormatter))
         author <- map["author"]
         tags <- map["tags"]
     }

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxAlamofire
 
 class APIRequester {
     class func photosPublic(completion: @escaping (Bool, PhotosPublicModel?) -> Void) -> URLSessionDataTask? {
@@ -38,5 +40,16 @@ class APIRequester {
         }
         task.resume()
         return task
+    }
+    
+    class func rxPhotosPublic() -> Observable<PhotosPublicModel> {
+        return string(.get, "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1")
+            .observeOn(MainScheduler.instance)
+            .map { jsonString in
+                guard let model = PhotosPublicModel(JSONString: jsonString) else {
+                    throw RxError.unknown
+                }
+                return model
+            }
     }
 }
